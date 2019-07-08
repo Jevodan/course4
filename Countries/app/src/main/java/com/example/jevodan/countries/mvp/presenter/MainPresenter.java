@@ -6,22 +6,20 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.jevodan.countries.mvp.model.entity.Country;
-import com.example.jevodan.countries.mvp.model.entity.Owner;
-import com.example.jevodan.countries.mvp.model.entity.TestInstData;
+import com.example.jevodan.countries.mvp.model.entity.Datum;
+import com.example.jevodan.countries.mvp.model.entity.Photo;
 import com.example.jevodan.countries.mvp.model.entity.UserRepos;
 import com.example.jevodan.countries.mvp.model.repo.CountriesRepo;
+import com.example.jevodan.countries.mvp.model.repo.PhotoRepo;
 import com.example.jevodan.countries.mvp.model.repo.UserRepo;
 import com.example.jevodan.countries.mvp.view.CountryRowView;
 import com.example.jevodan.countries.mvp.view.MainView;
+import com.example.jevodan.countries.mvp.view.PhotoRowView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Scheduler;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import timber.log.Timber;
 
@@ -36,9 +34,29 @@ public class MainPresenter extends MvpPresenter<MainView> {
         return reposListPresenter;
     }
 
+    public IPhotoListPresenter getPhotoListPresenter() {
+        return photoListPresenter;
+    }
+
+    class PhotoListPresenter implements IPhotoListPresenter{
+
+        List<Datum> photos = new ArrayList<>();
+
+        @Override
+        public void bind(PhotoRowView view) {
+            view.setTitle(photos.get(view.getPos()).getCaption().getText());
+            view.setPictureUrl(photos.get(view.getPos()).getImages().getStandardResolution().getUrl());
+        }
+
+        @Override
+        public int getCount() {
+            return photos.size();
+        }
+
+    }
+
     class ReposListPresenter implements IReposListPresenter {
 
-        PublishSubject<CountryRowView> publishSubject = PublishSubject.create();
         List<UserRepos> countries = new ArrayList<>();
 
         @Override
@@ -80,14 +98,17 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     private CountriesRepo repo;
     private UserRepo userRepo;
+    private PhotoRepo photoRepo;
     private Scheduler mainThreadScheduler;
     private CountryListPresenter countryListPresenter = new CountryListPresenter();
     private ReposListPresenter reposListPresenter = new ReposListPresenter();
+    private PhotoListPresenter photoListPresenter = new PhotoListPresenter();
 
     public MainPresenter(Scheduler mainThreadScheduler) {
         this.mainThreadScheduler = mainThreadScheduler;
         this.repo = new CountriesRepo();
         this.userRepo = new UserRepo();
+        this.photoRepo = new PhotoRepo();
     }
 
     @SuppressLint("CheckResult")
@@ -100,8 +121,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
         });
 
-        //  loadCountries();
-        loadUser();
+        // loadCountries();
+       // loadUser();
+        loadPhoto();
 
         countryListPresenter.getClickSubject().subscribe(itemView -> {
             getViewState().showMessage(countryListPresenter.countries.get(itemView.getPos()).getName());
@@ -110,11 +132,15 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     @SuppressLint("CheckResult")
     private void loadPhoto() {
-        userRepo.getPhoto("15867753227")
+        photoRepo.getPhoto("15867753227")
                 .observeOn(mainThreadScheduler)
                 .subscribe(instagramm -> {
-                    Log.d("5555",instagramm.getProfilePicture() + instagramm.getUsername());
-                    getViewState().showPicture(instagramm.getProfilePicture());
+                    Log.d("444",instagramm.getData().get(0).getImages().getStandardResolution().getUrl() );
+                    photoListPresenter.photos.clear();
+                    photoListPresenter.photos.addAll(instagramm.getData());
+                    getViewState().updateList();
+                 //   Log.d("5555",instagramm.getProfilePicture() + instagramm.getUsername());
+                  //  getViewState().showPicture(instagramm.getData().get(0).getImages().getThumbnail().getUrl());
                 });
     }
 

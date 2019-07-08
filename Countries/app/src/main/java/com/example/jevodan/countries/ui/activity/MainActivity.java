@@ -14,9 +14,12 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.jevodan.countries.R;
+import com.example.jevodan.countries.mvp.model.entity.Datum;
+import com.example.jevodan.countries.mvp.model.entity.InstDataSource;
 import com.example.jevodan.countries.mvp.presenter.MainPresenter;
 import com.example.jevodan.countries.mvp.view.MainView;
 import com.example.jevodan.countries.ui.adapter.CountryAdapter;
+import com.example.jevodan.countries.ui.adapter.PhotoAdapter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -37,7 +40,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @BindView(R.id.myPhoto)
     ImageView photo;
 
-    CountryAdapter adapter;
+    PhotoAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @Override
     public void init() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CountryAdapter(presenter.getReposListPresenter());
+        adapter = new PhotoAdapter(presenter.getPhotoListPresenter());
         recyclerView.setAdapter(adapter);
     }
 
@@ -79,10 +82,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Override
     public void showPicture(String url) {
-        Log.d("5555","url:" + url);
         Picasso.get().load(url)
                 .error(R.drawable.ic_launcher_background)
                 .into(photo);
     }
+
 
 }
