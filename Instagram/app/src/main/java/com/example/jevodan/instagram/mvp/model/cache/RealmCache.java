@@ -14,7 +14,7 @@ public class RealmCache implements IDataCache {
 
 
     @Override
-    public Single<InstDataSource> getData(String userId) {
+    public Single<InstDataSource> getData(String userId, Boolean chosen) {
         return null;
     }
 
@@ -25,6 +25,16 @@ public class RealmCache implements IDataCache {
 
     @Override
     public Completable putImages(List<Datum> datum, String idUser) {
+        return null;
+    }
+
+    @Override
+    public Completable saveNewFavor(String name) {
+        return null;
+    }
+
+    @Override
+    public Boolean getCacheFavor(String text) {
         return null;
     }
 

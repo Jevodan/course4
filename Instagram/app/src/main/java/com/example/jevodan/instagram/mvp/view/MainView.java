@@ -16,7 +16,7 @@ public interface MainView extends MvpView {
 
     void init();
 
-    void showPhoto(List<Datum> data);
+    void showPhoto(String text);
 
     void updateList();
 

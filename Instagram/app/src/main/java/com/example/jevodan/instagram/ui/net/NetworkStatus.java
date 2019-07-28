@@ -7,6 +7,11 @@ import android.net.NetworkInfo;
 import com.example.jevodan.instagram.App;
 
 public class NetworkStatus implements INetworkStatus {
+
+    /**
+     * Получаем статус сети
+     * @return статус сети
+     */
     @Override
     public Status getStatus() {
         ConnectivityManager cm = (ConnectivityManager) App.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);

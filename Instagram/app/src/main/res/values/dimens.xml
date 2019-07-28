@@ -3,4 +3,5 @@
     <dimen name="title_30dp">20dp</dimen>
     <dimen name="margin_5dp">5dp</dimen>
     <dimen name="title">20dp</dimen>
+    <dimen name="detail_text_40dp">40dp</dimen>
 </resources>

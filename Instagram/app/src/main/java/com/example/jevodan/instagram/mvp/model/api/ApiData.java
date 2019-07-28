@@ -10,13 +10,15 @@ import retrofit2.http.Path;
 
 public interface ApiData {
 
+    /**
+     * GET запрос для получения данных из сети интернет
+     *
+     * @param userId - id пользователя
+     */
+
     @GET("users/{userId}/media/recent/?access_token=" + Constants.TOKEN)
     Single<InstDataSource> getData(
             @Path("userId") String userId
     );
-
-    @GET("users/{user}")
-    Single<Owner> getUser(@Path("user") String username);
-
 
 }

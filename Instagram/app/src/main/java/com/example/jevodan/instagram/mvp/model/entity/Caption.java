@@ -18,6 +18,17 @@ public class Caption {
     @Expose
     private From from;
 
+    @Expose
+    private Boolean favor;
+
+    public Boolean getFavor() {
+        return favor;
+    }
+
+    public void setFavor(Boolean favor) {
+        this.favor = favor;
+    }
+
     public String getId() {
         return id;
     }

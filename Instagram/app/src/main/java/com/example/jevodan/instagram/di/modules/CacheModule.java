@@ -1,4 +1,4 @@
-package com.example.jevodan.instagram.di;
+package com.example.jevodan.instagram.di.modules;
 
 
 import com.example.jevodan.instagram.mvp.model.cache.IDataCache;

@@ -33,6 +33,13 @@
         android:textSize="@dimen/title"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/favor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:visibility="gone" />
+
 
 </RelativeLayout>
 

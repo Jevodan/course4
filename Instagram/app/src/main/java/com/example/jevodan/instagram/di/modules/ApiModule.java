@@ -1,4 +1,4 @@
-package com.example.jevodan.instagram.di;
+package com.example.jevodan.instagram.di.modules;
 
 
 import android.util.Log;

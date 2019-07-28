@@ -6,5 +6,6 @@ public interface PhotoRowView {
     int getPos();
     void setTitle(String title);
     void setPictureUrl(String url);
+    void setFavor(Boolean favor);
 
 }

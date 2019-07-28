@@ -3,10 +3,11 @@ package com.example.jevodan.instagram;
 import android.app.Application;
 
 import com.example.jevodan.instagram.di.AppComponent;
-import com.example.jevodan.instagram.di.AppModule;
+import com.example.jevodan.instagram.di.modules.AppModule;
 import com.example.jevodan.instagram.di.DaggerAppComponent;
 import com.example.jevodan.instagram.mvp.model.entity.room.db.Database;
 import com.facebook.stetho.Stetho;
+
 import timber.log.Timber;
 
 public class App extends Application {
@@ -21,19 +22,9 @@ public class App extends Application {
         instance = this;
         Timber.plant(new Timber.DebugTree());
         Database.create(this);
-        //   Paper.init(this);
-
-        //  Realm.init(this);
-        //   RealmConfiguration config = new RealmConfiguration.Builder()
-        //           .deleteRealmIfMigrationNeeded()
-        //            .build();
-
-        //    Realm.setDefaultConfiguration(config);
-
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
-
     }
 
     public static App getInstance() {
@@ -44,7 +35,10 @@ public class App extends Application {
         return appComponent;
     }
 
-    public void initStetho(){
+    /**
+     * Инициализация библиотеки Stetho
+     */
+    public void initStetho() {
         // Create an InitializerBuilder
         Stetho.InitializerBuilder initializerBuilder =
                 Stetho.newInitializerBuilder(this);

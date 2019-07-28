@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 
 import com.example.jevodan.instagram.mvp.model.entity.room.tables.RoomPhoto;
@@ -24,7 +25,7 @@ public interface PhotoDao {
     @Insert(onConflict = REPLACE)
     void insert(List<RoomPhoto> photo);
 
-    @Insert
+    @Update
     void update(RoomPhoto photo);
 
     @Insert
@@ -52,4 +53,6 @@ public interface PhotoDao {
     @Query("SELECT * FROM roomphoto WHERE name = :name LIMIT 1")
     RoomPhoto findByName(String name);
 
+    @Query("SELECT * FROM roomphoto WHERE user = :user AND chosen = 1")
+    List<RoomPhoto> findChosen(String user);
 }
