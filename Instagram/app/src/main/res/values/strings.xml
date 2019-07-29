@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Instagram</string>
+    <string name="show">show</string>
+    <string name="id">id:  </string>
+    <string name="login">login:  </string>
+    <string name="username">username:  </string>
+    <string name="name">Название</string>
+</resources>
